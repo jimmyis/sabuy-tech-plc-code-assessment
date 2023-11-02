@@ -5,6 +5,7 @@ export default function () {
     router.route('/')
         .get(getAllTerminals)
         .post(addTerminal)
+        .put(updateTerminal)
 
     router.route('/:id')
         .get(getTerminalById)
@@ -29,4 +30,16 @@ const addTerminal = (req, res) => {
         \n${JSON.stringify(req.body, null, 2)}`);
         
     res.send("New terminal added");
+}
+
+const updateTerminal = (req, res) => {    
+    try {
+        const { TERM_ID: id } = req.body;
+
+        if (!id) throw("Invalid data");
+
+        res.send(`Edited terminal ${id} data`);
+    } catch (e) {
+        res.send(e);
+    }
 }
