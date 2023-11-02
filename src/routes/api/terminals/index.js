@@ -7,11 +7,24 @@ export default function () {
         .post(addTerminal)
         .put(updateTerminal)
 
-    router.route('/:id')
+    router.use('/:id', idParamCheckMiddleware)
+        .route('/:id')
         .get(getTerminalById)
         .delete(deleteTerminalById)
 
     return router
+}
+
+const idParamCheckMiddleware = (req, res, next) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) throw("Invalid data");
+
+        next();
+    } catch (e) {
+        res.send(e);
+    }
 }
 
 const getAllTerminals = (req, res) => {
@@ -19,8 +32,7 @@ const getAllTerminals = (req, res) => {
 }
 
 const getTerminalById = (req, res) => {
-    const { params } = req;
-    const { id } = params;
+    const { id } = req.params;
 
     res.send(`Get terminal: ${id}`);
 }
@@ -46,13 +58,7 @@ const updateTerminal = (req, res) => {
 }
 
 const deleteTerminalById = (req, res) => {
-    try {
-        const { id } = req.params;
+    const { id } = req.params;
 
-        if (!id) throw("Invalid data");
-
-        res.send(`Deleted terminal ${id} data`);
-    } catch (e) {
-        res.send(e);
-    }
+    res.send(`Deleted terminal: ${id}`);
 }
