@@ -9,6 +9,7 @@ export default function () {
 
     router.route('/:id')
         .get(getTerminalById)
+        .delete(deleteTerminalById)
 
     return router
 }
@@ -39,6 +40,18 @@ const updateTerminal = (req, res) => {
         if (!id) throw("Invalid data");
 
         res.send(`Edited terminal ${id} data`);
+    } catch (e) {
+        res.send(e);
+    }
+}
+
+const deleteTerminalById = (req, res) => {
+    try {
+        const { id } = req.params;
+
+        if (!id) throw("Invalid data");
+
+        res.send(`Deleted terminal ${id} data`);
     } catch (e) {
         res.send(e);
     }
