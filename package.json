@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Code Assessment for Sabuy Technology PLC. - 20231102",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
