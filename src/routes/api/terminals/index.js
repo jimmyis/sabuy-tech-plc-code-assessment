@@ -4,6 +4,7 @@ const router = Router();
 export default function () {
     router.route('/')
         .get(getAllTerminals)
+        .post(addTerminal)
 
     router.route('/:id')
         .get(getTerminalById)
@@ -20,4 +21,12 @@ const getTerminalById = (req, res) => {
     const { id } = params;
 
     res.send(`Get terminal: ${id}`);
+}
+
+const addTerminal = (req, res) => {
+    console.log(
+        `Add a new terminal
+        \n${JSON.stringify(req.body, null, 2)}`);
+        
+    res.send("New terminal added");
 }
