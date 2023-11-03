@@ -149,3 +149,18 @@ export const updateTerminalById = async ({ db }, data) => {
         throw (e);
     }
 }
+
+export const deleteTerminalById = async ({ db }, id) => {
+    try {
+        const result = await db
+            .query(`DELETE FROM TERMINAL_INFO WHERE TERM_ID = ?`, 
+            [id]);
+
+        console.log(result);
+
+        return
+    } catch (e) {
+        console.error(e);
+        throw (e);
+    }
+}
