@@ -22,3 +22,111 @@ export const readTerminalById = async ({ db }, id) => {
         throw (e)
     }
 }
+
+export const insertTerminal = async ({ db }, data) => {
+    try {
+        const {
+            TERM_ID,
+            BRANCH,
+            VENDORNO,
+            PRODUCTNO,
+            PMINO,
+            BATCH,
+            SLIPNO,
+            TERM_NAME,
+            TERM_FOOD,
+            PAYPERCENT,
+            PAYPERDAY,
+            INCLUDEVAT,
+            INV_PRINT,
+            INV_NAME,
+            INV_ADDR,
+            TERM_FLAG,
+            TYPEPAY,
+            STAFFOFCHARGE,
+            STAFFPRODUCTNO,
+            CUSTOMER_REF,
+            RENTAL_ID,
+            HORIZON_SENT,
+            LEASE_TYPE,
+            CLUBCARD_CODE,
+            CLUBCARD_AMT,
+            CLUBCARD_POINT,
+            TERMINAL_TYPE,
+        } = data;
+
+        const result = await db
+            .query(`
+                INSERT
+                    INTO TERMINAL_INFO (
+                        TERM_ID,
+                        BRANCH,
+                        VENDORNO,
+                        PRODUCTNO,
+                        PMINO,
+                        BATCH,
+                        SLIPNO,
+                        TERM_NAME,
+                        TERM_FOOD,
+                        PAYPERCENT,
+                        PAYPERDAY,
+                        INCLUDEVAT,
+                        INV_PRINT,
+                        INV_NAME,
+                        INV_ADDR,
+                        TERM_FLAG,
+                        TYPEPAY,
+                        STAFFOFCHARGE,
+                        STAFFPRODUCTNO,
+                        CUSTOMER_REF,
+                        RENTAL_ID,
+                        HORIZON_SENT,
+                        LEASE_TYPE,
+                        CLUBCARD_CODE,
+                        CLUBCARD_AMT,
+                        CLUBCARD_POINT,
+                        TERMINAL_TYPE
+                    )
+                    VALUES
+                        (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`, 
+                [
+                    TERM_ID,
+                    BRANCH,
+                    VENDORNO,
+                    PRODUCTNO,
+                    PMINO,
+                    BATCH,
+                    SLIPNO,
+                    TERM_NAME,
+                    TERM_FOOD,
+                    PAYPERCENT,
+                    PAYPERDAY,
+                    INCLUDEVAT,
+                    INV_PRINT,
+                    INV_NAME,
+                    INV_ADDR,
+                    TERM_FLAG,
+                    TYPEPAY,
+                    STAFFOFCHARGE,
+                    STAFFPRODUCTNO,
+                    CUSTOMER_REF,
+                    RENTAL_ID,
+                    HORIZON_SENT,
+                    LEASE_TYPE,
+                    CLUBCARD_CODE,
+                    CLUBCARD_AMT,
+                    CLUBCARD_POINT,
+                    TERMINAL_TYPE
+                ]);
+
+        console.log(
+            `Add a new terminal.\n`, result);
+
+    } catch (e) {
+        if (e.code === "ER_DUP_ENTRY") {
+            const error_message = `ERROR: ${e.code} - ${e.sqlMessage}`;
+            console.error(error_message);
+            throw(error_message);
+        }
+    }
+}
