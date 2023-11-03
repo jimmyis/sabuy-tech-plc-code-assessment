@@ -1,5 +1,7 @@
 import apiRoutes from "./api/index.js";
 
-export default function ({ app }) {
-    app.use("/api", apiRoutes({ app }));
+export default function (context) {
+    const { app } = context;
+
+    app.use("/api", apiRoutes(context));
 }
