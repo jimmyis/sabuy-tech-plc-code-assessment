@@ -3,6 +3,7 @@ import {
     readTerminalById,
     insertTerminal,
     updateTerminalById,
+    deleteTerminalById
 } from "../../models/terminals/index.js";
 
 export const getAllTerminals = async ({ db }) => {
@@ -19,4 +20,8 @@ export const addTerminal = async ({ db }, data) => {
 
 export const editTerminal = async ({ db }, data) => {
     return await updateTerminalById({ db }, data);
+}
+
+export const removeTerminalById = async ({ db }, id) => {
+    return await deleteTerminalById({ db }, id);
 }
