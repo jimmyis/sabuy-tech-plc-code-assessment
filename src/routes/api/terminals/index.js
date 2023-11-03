@@ -1,64 +1,90 @@
 import { Router } from "express";
+import { idParamCheck } from "../../../middlewares/index.js";
+import { 
+    getAllTerminals,
+    getTerminalById,
+    addTerminal,
+    editTerminal,
+    removeTerminalById
+} from "../../../controllers/terminals/index.js"
+
 const router = Router();
 
 export default function () {
     router.route('/')
-        .get(getAllTerminals)
-        .post(addTerminal)
-        .put(updateTerminal)
+        .get(routeGetAllTerminals)
+        .post(routeAddTerminal)
+        .put(routeEditTerminal)
 
-    router.use('/:id', idParamCheckMiddleware)
+    router
+        .use('/:id', idParamCheck)
         .route('/:id')
-        .get(getTerminalById)
-        .delete(deleteTerminalById)
+        .get(routeGetTerminalById)
+        .delete(routeRemoveTerminalById)
+
 
     return router
 }
 
-const idParamCheckMiddleware = (req, res, next) => {
+const routeGetAllTerminals = async (req, res) => {
     try {
-        const { id } = req.params;
+        const result = await getAllTerminals(req.context);
 
-        if (!id) throw("Invalid data");
+        res.json(result);
 
-        next();
     } catch (e) {
-        res.send(e);
+        res.status(500).send("Error")
     }
 }
 
-const getAllTerminals = (req, res) => {
-    res.send("All Terminals");
+const routeGetTerminalById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const result = await getTerminalById(req.context, id);
+    
+        res.json(result);
+
+    } catch (e) {
+        res.status(500).send("Error")
+    }
 }
 
-const getTerminalById = (req, res) => {
-    const { id } = req.params;
+const routeAddTerminal = async (req, res) => {
+    try {
 
-    res.send(`Get terminal: ${id}`);
+        await addTerminal(req.context, req.body);
+    
+        res.send("New terminal added");
+
+    } catch (e) {
+        res.status(500).send("Error")
+    }
 }
 
-const addTerminal = (req, res) => {
-    console.log(
-        `Add a new terminal
-        \n${JSON.stringify(req.body, null, 2)}`);
-        
-    res.send("New terminal added");
-}
-
-const updateTerminal = (req, res) => {    
+const routeEditTerminal = async (req, res) => {    
     try {
         const { TERM_ID: id } = req.body;
 
         if (!id) throw("Invalid data");
+        
+        await editTerminal(req.context, req.body);
 
         res.send(`Edited terminal ${id} data`);
+
     } catch (e) {
-        res.send(e);
+        res.status(500).send("Error");
     }
 }
 
-const deleteTerminalById = (req, res) => {
-    const { id } = req.params;
+const routeRemoveTerminalById = async (req, res) => {
+    try {
+        const { id } = req.params;
 
-    res.send(`Deleted terminal: ${id}`);
+        await removeTerminalById(req.context, id);
+ 
+        res.send(`Deleted terminal: ${id}`);
+
+    } catch (e) {
+        res.status(500).send("Error");
+    }
 }
