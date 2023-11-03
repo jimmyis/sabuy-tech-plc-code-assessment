@@ -1,7 +1,7 @@
 import mariadb from "mariadb";
-import { databaseConfigs } from "../configs/index.js";
+import configs from "../configs/index.js";
 
-const pool = mariadb.createPool(databaseConfigs.mariadb);  
+const pool = mariadb.createPool(configs.databaseConfigs.mariadb);  
 
 const DB = {
     init,
