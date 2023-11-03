@@ -8,7 +8,9 @@ import {
     removeTerminalById
 } from "../../../controllers/terminals/index.js"
 
+
 const router = Router();
+
 
 export default function () {
     router.route('/')
