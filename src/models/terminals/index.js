@@ -164,3 +164,12 @@ export const deleteTerminalById = async ({ db }, id) => {
         throw (e);
     }
 }
+
+// Convert BigInt to String
+const serializeEscaper = (data) => {
+    return data.map((item) => {
+        item["CLUBCARD_POINT"] = item["CLUBCARD_POINT"].toString();
+        
+        return item
+    })
+}
