@@ -22,6 +22,8 @@ export default function () {
         .get(routeGetTerminalById)
         .delete(routeRemoveTerminalById)
 
+    router.route('*')
+        .all((req, res) => res.status(404).send("Not Found"))
 
     return router
 }
