@@ -130,3 +130,22 @@ export const insertTerminal = async ({ db }, data) => {
         }
     }
 }
+
+export const updateTerminalById = async ({ db }, data) => {
+    try {
+        const { TERM_ID: id, TERMINAL_TYPE } = data;
+
+        const result = await db
+            .query(`
+                UPDATE TERMINAL_INFO 
+                SET
+                    TERMINAL_TYPE = ?
+                WHERE TERM_ID = ?`, 
+            [TERMINAL_TYPE, id]);
+
+        return result
+    } catch (e) {
+        console.error(e);
+        throw (e);
+    }
+}
