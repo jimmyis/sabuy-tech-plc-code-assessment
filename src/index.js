@@ -9,6 +9,12 @@ const app = express();
 
 app.use(express.json({ limit: '1mb' }));
 
+// Dependency Injected Services as Context via Middleware
+app.use((req, res, next) => {
+    req.context = {
+        db: database.db
+    };
+    next();
 })
 
 router({ app });
