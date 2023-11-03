@@ -11,6 +11,7 @@
   "author": "Jimmyis <jimmyis.engineerings@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "mariadb": "^3.2.2"
   }
