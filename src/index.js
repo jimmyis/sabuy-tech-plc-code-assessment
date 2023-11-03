@@ -9,10 +9,8 @@ const app = express();
 
 app.use(express.json({ limit: '1mb' }));
 
-router({ app });
-
-app.get("/status", (req, res) => {
-    res.send("OK");
 })
+
+router({ app });
 
 app.listen(3000);
