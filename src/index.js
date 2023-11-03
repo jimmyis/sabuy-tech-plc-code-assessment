@@ -1,6 +1,9 @@
 import 'dotenv/config';
 import express from "express";
 import router from "./routes/index.js";
+import database from "./dependencies/db.js";
+
+database.init().then().catch(console.error);
 
 const app = express();
 
