@@ -12,9 +12,6 @@ export default function () {
     router.route('/update')
         .put(routeUpdateTestTable);
 
-    router.route('*')
-        .all((req, res) => res.status(404).send("Not Found"));
-
     return router
 }
 
